@@ -12,7 +12,7 @@ let future f x : 'a future =
   let future = {t=ref None; pid=ref 0; value=ref None} in
   (* open pipe for communication between processes *)
   let (fd_in, fd_out) = pipe () in
-  (* install signal handler for child process termination *)
+  (* function writes result to the output of pipe () *)
   let write_result f =
     let _ = waitpid [] !(f.pid) in
     let result = input_value (in_channel_of_descr fd_in) in

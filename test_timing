@@ -1,0 +1,3 @@
+echo "Single vs. double for n = $1"
+time ./main_future false $1
+time ./main_future true $1
