@@ -1,4 +1,5 @@
 open Future;;
+open List;;
 
 (* sort a list of integers l with parallelism *)
 let rec mergesort (l:int list) : int list =
@@ -45,9 +46,14 @@ let rec random_list n =
 let main =
   try
     let n = int_of_string Sys.argv.(1) in
-    let _ = mergesort (random_list n) in
-    ()
+    let sorted = mergesort (random_list n) in
+    let rec is_sorted l =
+      match l with
+      | []
+      | _::[] -> true
+      | x::y::tl -> x <=y && is_sorted (y::tl) in
+    assert(is_sorted sorted)
   with Invalid_argument(s) ->
     print_string "Please enter an integer to specify the length of list to sort. \n"
 ;;
-  
+
