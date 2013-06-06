@@ -1,7 +1,10 @@
-all: main_future
+.PHONY: all debug native
+OCAMLBUILD = ocamlbuild -use-ocamlfind -I src
 
-main_future: main_future.ml future.ml
-	ocamlc -thread -o main_future unix.cma threads.cma future.mli future.ml main_future.ml
+all: debug native
 
-clean:
-	rm -f main_future *.cm*
+debug:
+	$(OCAMLBUILD) debug.otarget
+
+native:
+	$(OCAMLBUILD) native.otarget

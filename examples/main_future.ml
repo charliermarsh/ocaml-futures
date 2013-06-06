@@ -14,7 +14,7 @@ let rec fib n =
    rather than the time in all processes combined (I think). So
    it's not really a good metric. For a better understanding, use
    "time ./future" from the command-line. *)
-let test_multi n m = 
+let test_multi n m =
   let f1 = future fib n in
   let f2 = future fib m in
   let r1 = force f1 in
@@ -22,7 +22,7 @@ let test_multi n m =
   Printf.printf "Multi-threaded results: %d, %d\n" r1 r2;
 ;;
 
-let test_single n m = 
+let test_single n m =
   let r1 = fib n in
   let r2 = fib m in
   Printf.printf "Single-threaded results: %d, %d\n" r1 r2;
@@ -39,5 +39,3 @@ let main =
   with Invalid_argument(s) ->
     print_string "Please enter 'true' for multi-threading or 'false' else, followed by a value of n to compute.\n"
 ;;
-    
- 
