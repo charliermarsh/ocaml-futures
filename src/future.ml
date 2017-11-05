@@ -4,10 +4,9 @@ open Marshal;;
 
 type 'a future = {t : Thread.t option ref; pid : int ref; value : 'a option ref};;
 
-(* To generate a future, we use unix processes. Pipes are used to
-   handle parent-child communication. The child process handles the
-   computation and outputs the result to a shared file descriptor,
-   to which the parent later reads. *)
+(* To generate a future, we use unix processes. Pipes handle parent-child
+   communication. The child process handles the computation and outputs the
+   result to a shared file descriptor, from which the parent later reads. *)
 let future (f:'a -> 'b) (x:'a) : 'b future =
   (* establish future to be placed inside closure of sigchld *)
   let future = {t=ref None; pid=ref 0; value=ref None} in
